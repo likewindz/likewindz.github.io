@@ -50,28 +50,34 @@
   };
 </script>
 
-  <meta property="og:type" content="website">
-<meta property="og:title" content="风继续吹">
-<meta property="og:url" content="git@github.com:theshy0927&#x2F;theshy0927.github.io.git&#x2F;index.html">
+  <meta name="description" content="什么是 NGINXNginx 是一款高性能的 HTTP 服务器&#x2F;反向代理服务器及电子邮件（IMAP&#x2F;POP3）代理服务器。由俄罗斯的程序设计师 Igor Sysoev 所开发，官方测试 Nginx 能够支支撑 5 万并发链接，并且 CPU、内存等资源消耗却非常低，运行非常稳定。  http服务器：nginx是一个http服务器,可以用来提供独立的http服务,但其只能做静态资源(无法处理像tomc">
+<meta property="og:type" content="article">
+<meta property="og:title" content="NGINX 基本概念">
+<meta property="og:url" content="git@github.com:theshy0927&#x2F;theshy0927.github.io.git&#x2F;20191109&#x2F;NGINX-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5&#x2F;index.html">
 <meta property="og:site_name" content="风继续吹">
+<meta property="og:description" content="什么是 NGINXNginx 是一款高性能的 HTTP 服务器&#x2F;反向代理服务器及电子邮件（IMAP&#x2F;POP3）代理服务器。由俄罗斯的程序设计师 Igor Sysoev 所开发，官方测试 Nginx 能够支支撑 5 万并发链接，并且 CPU、内存等资源消耗却非常低，运行非常稳定。  http服务器：nginx是一个http服务器,可以用来提供独立的http服务,但其只能做静态资源(无法处理像tomc">
 <meta property="og:locale" content="en-US">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.funtl.com&#x2F;assets&#x2F;Lusifer2018080517010002.png">
+<meta property="og:image" content="https:&#x2F;&#x2F;www.funtl.com&#x2F;assets&#x2F;Lusifer2018080517010003.png">
+<meta property="og:updated_time" content="2019-11-09T02:51:09.230Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;www.funtl.com&#x2F;assets&#x2F;Lusifer2018080517010002.png">
 
-<link rel="canonical" href="git@github.com:theshy0927/theshy0927.github.io.git/">
+<link rel="canonical" href="git@github.com:theshy0927/theshy0927.github.io.git/20191109/NGINX-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
 
 
 <script id="page-configurations">
   // https://hexo.io/docs/variables.html
   CONFIG.page = {
     sidebar: "",
-    isHome: true,
-    isPost: false,
+    isHome: false,
+    isPost: true,
     isPage: false,
     isArchive: false
   };
 </script>
 
-  <title>风继续吹</title>
+  <title>NGINX 基本概念 | 风继续吹</title>
   
 
 
@@ -194,10 +200,10 @@
             
 
   <div class="posts-expand">
-        
+      
   
   
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en-US">
+  <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="en-US">
     <link itemprop="mainEntityOfPage" href="git@github.com:theshy0927/theshy0927.github.io.git/20191109/NGINX-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -211,8 +217,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/20191109/NGINX-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="post-title-link" itemprop="url">NGINX 基本概念</a>
+          NGINX 基本概念
         </h1>
 
         <div class="post-meta">
@@ -237,7 +242,7 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h4 id="什么是-NGINX"><a href="#什么是-NGINX" class="headerlink" title="什么是 NGINX"></a>什么是 NGINX</h4><p>Nginx 是一款高性能的 HTTP 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器。由俄罗斯的程序设计师 Igor Sysoev 所开发，官方测试 Nginx 能够支支撑 5 万并发链接，并且 CPU、内存等资源消耗却非常低，运行非常稳定。</p>
+        <h4 id="什么是-NGINX"><a href="#什么是-NGINX" class="headerlink" title="什么是 NGINX"></a>什么是 NGINX</h4><p>Nginx 是一款高性能的 HTTP 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器。由俄罗斯的程序设计师 Igor Sysoev 所开发，官方测试 Nginx 能够支支撑 5 万并发链接，并且 CPU、内存等资源消耗却非常低，运行非常稳定。</p>
 <ol>
 <li>http服务器：nginx是一个http服务器,可以用来提供独立的http服务,但其只能做静态资源(无法处理像tomcat提供servlet容器来创建动态网页)。</li>
 <li>虚拟主机：可以实现在一台服务器虚拟出多个网站。例如个人网站使用的虚拟主机。</li>
@@ -280,213 +285,36 @@
 <li>tomcat2 服务器：192.168.42.128:9091</li>
 </ul>
 
-      
     </div>
 
     
     
     
+
       <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
 
         
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en-US">
-    <link itemprop="mainEntityOfPage" href="git@github.com:theshy0927/theshy0927.github.io.git/20191107/redis-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/">
 
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="风继续吹">
-      <meta itemprop="description" content="">
-    </span>
+          <div class="post-nav">
+            <div class="post-nav-next post-nav-item">
+                <a href="/20191107/redis-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" rel="next" title="redis 基本概念">
+                  <i class="fa fa-chevron-left"></i> redis 基本概念
+                </a>
+            </div>
 
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="风继续吹">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/20191107/redis-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/" class="post-title-link" itemprop="url">redis 基本概念</a>
-        </h1>
+            <span class="post-nav-divider"></span>
 
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              <time title="Erstellt: 2019-11-07 21:46:23 / Geändert am: 21:46:55" itemprop="dateCreated datePublished" datetime="2019-11-07T21:46:23+08:00">2019-11-07</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="1-传统数据库的劣势"><a href="#1-传统数据库的劣势" class="headerlink" title="1.传统数据库的劣势"></a>1.传统数据库的劣势</h4><p>在比较大型的业务中,传统数据库的查询效率会越来越低,并且传统数据库的数据都是放到磁盘中,也就是查询时会进行频繁的I/O操作,因为磁盘读/写速度比较慢的问题而存在严重的性能弊端,如果同时涌来成千上万的请求,非常容易导致服务器瘫痪,甚至宕机。</p>
-<h4 id="2-NOSQL的优势"><a href="#2-NOSQL的优势" class="headerlink" title="2.NOSQL的优势"></a>2.NOSQL的优势</h4><p>NoSQL数据库的出现就是为了应付上面的问题,一般数据都是存放到内存中,所以效率肯定快于传统数据库,并且还提供了持久化,就是说如果需要关闭NoSQL服务时,会自动把内存数据存到硬盘中,当服务重启时会自动导入硬盘数据。</p>
-<h4 id="3-redis的优势"><a href="#3-redis的优势" class="headerlink" title="3.redis的优势"></a>3.redis的优势</h4><p>Redis和MongoDB是当前使用最广泛的NoSQL，而就Redis技术而言，它的性能十分优越，可以支持每秒十几万此的读/写操作，其性能远超数据库，并且还支持集群、分布式、主从同步等配置，原则上可以无限扩展，让更多的数据存储在内存中，更让人欣慰的是它还支持一定的事务能力，这保证了高并发的场景下数据的安全和一致性。</p>
-<h4 id="4-使用java程序对redis进行读写"><a href="#4-使用java程序对redis进行读写" class="headerlink" title="4.使用java程序对redis进行读写"></a>4.使用java程序对redis进行读写</h4><p>怎么下载和安装就省略了,并且windows和linux方式也差不多,使用reids-server开启服务端,redis.conf配置一些初始化信息,reids-cli开启客户端。</p>
-<p>程序中导入<code>jedis.jar</code>,这是java最底层的连接redis的工具jar。</p>
-<p>redis里面支持很多种数据类型,比如String、list、set、zset、hash,一般情况下我们都是使用String,把对象类型序列化成json然后存入,取出时经过反序列化即可。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">@Test  </span><br><span class="line">public void testJedisSingle() &#123;  </span><br><span class="line">    // 创建一个jedis对象  </span><br><span class="line">    Jedis jedis = new Jedis(&quot;lcoalhost&quot;, 6379);  </span><br><span class="line">    // 直接调用jedis对象的方法，方法名称和redis的命令一致  </span><br><span class="line">    //写</span><br><span class="line">    jedis.set(&quot;key1&quot;, &quot;test01&quot;);  </span><br><span class="line">    jedis.set(&quot;key2&quot;, &quot;test02&quot;);  </span><br><span class="line">    //读</span><br><span class="line">    String key1 = jedis.get(&quot;key1&quot;);  </span><br><span class="line">    String key2 = jedis.get(&quot;key2&quot;);  </span><br><span class="line">    System.out.println(key1 + &quot; &quot; + key2);  </span><br><span class="line">    // 关闭jedis  </span><br><span class="line">    jedis.close();  </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-<h4 id="5-Spring-boot集成redis"><a href="#5-Spring-boot集成redis" class="headerlink" title="5.Spring boot集成redis"></a>5.Spring boot集成redis</h4><p>spring boot内部已经集成了redis,我们只需要导入依赖即可</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
-
-<p>虽然默认集成了redis,且提供了一个redisTemplate来对redis进行操作,但该类默认没有实现序列化,因为spring boot条件注解机制的情况下,我们可以自己配置一个redisTemplate去取代默认的,代码如下,该方法实现了redisTemplate的String数据类型的序列化,然后再到网上找个redisUtils注入到IOC容器中,该类对redisTemplate进行了封装非常好用。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">#YML 配置redis信息</span><br><span class="line">spring:</span><br><span class="line">  ##### redis 配置开始  #####</span><br><span class="line">  redis:</span><br><span class="line">    database: 0</span><br><span class="line">    host: 192.168.42.128</span><br><span class="line">    port: 6379</span><br><span class="line">    jedis:</span><br><span class="line">      pool:</span><br><span class="line">        max-idle: 10</span><br><span class="line">        max-wait: -1</span><br><span class="line">        max-active: 200</span><br><span class="line">        min-idle: 0</span><br><span class="line">    timeout: 1000</span><br><span class="line">    password: 123456</span><br><span class="line">    ##### redis 配置结束 #####</span><br></pre></td></tr></table></figure>
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">package com.t248.appinfo.web.config;</span><br><span class="line"></span><br><span class="line">import com.fasterxml.jackson.annotation.JsonAutoDetect;</span><br><span class="line">import com.fasterxml.jackson.annotation.PropertyAccessor;</span><br><span class="line">import com.fasterxml.jackson.databind.ObjectMapper;</span><br><span class="line">import org.springframework.context.annotation.Bean;</span><br><span class="line">import org.springframework.context.annotation.Configuration;</span><br><span class="line">import org.springframework.data.redis.connection.RedisConnectionFactory;</span><br><span class="line">import org.springframework.data.redis.core.RedisTemplate;</span><br><span class="line">import org.springframework.data.redis.serializer.Jackson2JsonRedisSerializer;</span><br><span class="line">import org.springframework.data.redis.serializer.StringRedisSerializer;</span><br><span class="line"></span><br><span class="line">@Configuration</span><br><span class="line">public class RedisConfig &#123;</span><br><span class="line"></span><br><span class="line">    @Bean</span><br><span class="line">    @SuppressWarnings(&quot;all&quot;)</span><br><span class="line">    public RedisTemplate&lt;String, Object&gt; redisTemplate(RedisConnectionFactory factory) &#123;</span><br><span class="line">        RedisTemplate&lt;String, Object&gt; template = new RedisTemplate&lt;String, Object&gt;();</span><br><span class="line">        template.setConnectionFactory(factory);</span><br><span class="line">        Jackson2JsonRedisSerializer jackson2JsonRedisSerializer = new Jackson2JsonRedisSerializer(Object.class);</span><br><span class="line">        ObjectMapper om = new ObjectMapper();</span><br><span class="line">        om.setVisibility(PropertyAccessor.ALL, JsonAutoDetect.Visibility.ANY);</span><br><span class="line">        om.enableDefaultTyping(ObjectMapper.DefaultTyping.NON_FINAL);</span><br><span class="line">        jackson2JsonRedisSerializer.setObjectMapper(om);</span><br><span class="line">        StringRedisSerializer stringRedisSerializer = new StringRedisSerializer();</span><br><span class="line">        template.setKeySerializer(stringRedisSerializer);</span><br><span class="line">        // hash的key也采用String的序列化方式</span><br><span class="line">        template.setHashKeySerializer(stringRedisSerializer);</span><br><span class="line">        // value序列化方式采用jackson</span><br><span class="line">        template.setValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        // hash的value序列化方式采用jackson</span><br><span class="line">        template.setHashValueSerializer(jackson2JsonRedisSerializer);</span><br><span class="line">        template.afterPropertiesSet();</span><br><span class="line">        return template;</span><br><span class="line">    &#125;</span><br><span class="line">    @Bean</span><br><span class="line">    public RedisUtils beanUtils()&#123;</span><br><span class="line">        return new RedisUtils();</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
+            <div class="post-nav-prev post-nav-item">
+            </div>
+          </div>
       </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en-US">
-    <link itemprop="mainEntityOfPage" href="git@github.com:theshy0927/theshy0927.github.io.git/20191027/%E6%B5%8B%E8%AF%952/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="风继续吹">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="风继续吹">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/20191027/%E6%B5%8B%E8%AF%952/" class="post-title-link" itemprop="url">测试2</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              <time title="Erstellt: 2019-10-27 23:26:51 / Geändert am: 23:38:57" itemprop="dateCreated datePublished" datetime="2019-10-27T23:26:51+08:00">2019-10-27</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
     
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-        
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block home" lang="en-US">
-    <link itemprop="mainEntityOfPage" href="git@github.com:theshy0927/theshy0927.github.io.git/20191027/%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.gif">
-      <meta itemprop="name" content="风继续吹">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="风继续吹">
-    </span>
-      <header class="post-header">
-        <h1 class="post-title" itemprop="name headline">
-          
-            <a href="/20191027/%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B/" class="post-title-link" itemprop="url">测试一下</a>
-        </h1>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              <span class="post-meta-item-text">Veröffentlicht am</span>
-              
-
-              <time title="Erstellt: 2019-10-27 22:06:32 / Geändert am: 23:38:50" itemprop="dateCreated datePublished" datetime="2019-10-27T22:06:32+08:00">2019-10-27</time>
-            </span>
-
-          
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
   </article>
   
   
   
 
   </div>
-
-  
-
 
 
           </div>
@@ -515,6 +343,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#什么是-NGINX"><span class="nav-number">1.</span> <span class="nav-text">什么是 NGINX</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#虚拟主机"><span class="nav-number">2.</span> <span class="nav-text">虚拟主机</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#基于端口号"><span class="nav-number">2.1.</span> <span class="nav-text">基于端口号</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#基于域名"><span class="nav-number">2.2.</span> <span class="nav-text">基于域名</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向代理和正向代理"><span class="nav-number">3.</span> <span class="nav-text">反向代理和正向代理</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#提高访问速度"><span class="nav-number">3.1.</span> <span class="nav-text">提高访问速度</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#防火墙作用"><span class="nav-number">3.2.</span> <span class="nav-text">防火墙作用</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#通过代理服务器访问不能访问的目标站点"><span class="nav-number">3.3.</span> <span class="nav-text">通过代理服务器访问不能访问的目标站点</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#正向代理"><span class="nav-number">4.</span> <span class="nav-text">正向代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#反向代理"><span class="nav-number">5.</span> <span class="nav-text">反向代理</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#使用-Nginx-反向代理-Tomcat"><span class="nav-number">6.</span> <span class="nav-text">使用 Nginx 反向代理 Tomcat</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#需求"><span class="nav-number">6.1.</span> <span class="nav-text">需求</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 

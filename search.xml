@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>NGINX 基本概念</title>
+    <url>/20191109/NGINX-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
+    <content><![CDATA[<h4 id="什么是-NGINX"><a href="#什么是-NGINX" class="headerlink" title="什么是 NGINX"></a>什么是 NGINX</h4><p>Nginx 是一款高性能的 HTTP 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器。由俄罗斯的程序设计师 Igor Sysoev 所开发，官方测试 Nginx 能够支支撑 5 万并发链接，并且 CPU、内存等资源消耗却非常低，运行非常稳定。</p>
+<ol>
+<li>http服务器：nginx是一个http服务器,可以用来提供独立的http服务,但其只能做静态资源(无法处理像tomcat提供servlet容器来创建动态网页)。</li>
+<li>虚拟主机：可以实现在一台服务器虚拟出多个网站。例如个人网站使用的虚拟主机。</li>
+<li>反向代理+负载均衡：通过反向代理的方式做到负载均衡。</li>
+</ol>
+<p>==反向代理==：就是说服务器集群时请求不是直接发给服务器,而是先到达反向代理服务器,然后反向代理服务器在发送到服务器。</p>
+<p>==负载均衡==：就是说把请求分发给不同的服务器来处理,且要保证每个服务器处理请求的数量差不多,解决了单个服务器可能处理不过来的瓶颈,也就达到了高并发。</p>
+<p>也就是说NGINX本身就已经达到了高性能、高并发。</p>
+<h4 id="虚拟主机"><a href="#虚拟主机" class="headerlink" title="虚拟主机"></a>虚拟主机</h4><p>NGINX实现虚拟主机用三种方式：</p>
+<ol>
+<li>IP</li>
+<li>端口号</li>
+<li>域名</li>
+</ol>
+<h5 id="基于端口号"><a href="#基于端口号" class="headerlink" title="基于端口号"></a>基于端口号</h5><p>修改配置文件（/etc/nginx/nginx.conf）,如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># 启动进程,通常设置成和 CPU 的数量相等</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    # epoll 是多路复用 IO(I/O Multiplexing) 中的一种方式</span><br><span class="line">    # 但是仅用于 linux2.6 以上内核,可以大大提高 nginx 的性能</span><br><span class="line">    use epoll;</span><br><span class="line">    # 单个后台 worker process 进程的最大并发链接数</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    # 设定 mime 类型,类型由 mime.type 文件定义</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">   server &#123;</span><br><span class="line">        # 监听的ip和端口，配置 ip:80</span><br><span class="line">        listen       80;</span><br><span class="line">        # 虚拟主机名称这里配置ip地址</span><br><span class="line"></span><br><span class="line">        server_name  ip;</span><br><span class="line">        # 所有的请求都以 / 开始，所有的请求都可以匹配此 location</span><br><span class="line">        location / &#123;</span><br><span class="line">            # 当访问 http://ip:端口号/时 访问的其实就是root 目录</span><br><span class="line">            root   /usr/share/nginx/wwwroot/webService;</span><br><span class="line">            # 指定欢迎页面，按从左到右顺序查找</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">            &#125;</span><br></pre></td></tr></table></figure>
+
+<h5 id="基于域名"><a href="#基于域名" class="headerlink" title="基于域名"></a>基于域名</h5><p>为本机配置虚拟路径映射,修改<code>C:\Windows\System32\drivers\etc</code> 下的hosts文件,添加如下映射<code>映射名 映射ip</code>,<br>其实就是你访问这个映射名时自动转换成ip。</p>
+<p>我添加的映射</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">hello.t248.com 192.168.42.128</span><br><span class="line">welcome.t248.com 192.168.42.128</span><br></pre></td></tr></table></figure>
+
+<p>修改配置文件nginx.conf,在指定的root目录加上需要访问的html,否则也看出效果qwq,配置如下</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  welcome.t248.com;</span><br><span class="line">        location / &#123;</span><br><span class="line">            root   /usr/share/nginx/wwwroot/htmlservice;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  hello.t248.com;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   /usr/share/nginx/wwwroot/htmlweb;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+<h4 id="反向代理和正向代理"><a href="#反向代理和正向代理" class="headerlink" title="反向代理和正向代理"></a>反向代理和正向代理</h4><p>代理就是说不用自己亲自去操作,而是告诉别人,让别人去做并且完成了告诉我结果就行了,就好像没有代理的话,我们只能去实体店去买东西,有了代理我们可以在网上买,等快递到了通知我们拿就行了。</p>
+<h5 id="提高访问速度"><a href="#提高访问速度" class="headerlink" title="提高访问速度"></a>提高访问速度</h5><p>由于目标主机返回的数据会存放在代理服务器的硬盘中，因此下一次客户再访问相同的站点数据时，会直接从代理服务器的硬盘中读取，起到了缓存的作用，尤其对于热门站点能明显提高请求速度。</p>
+<h5 id="防火墙作用"><a href="#防火墙作用" class="headerlink" title="防火墙作用"></a>防火墙作用</h5><p>由于所有的客户机请求都必须通过代理服务器访问远程站点，因此可在代理服务器上设限，过滤某些不安全信息。</p>
+<h5 id="通过代理服务器访问不能访问的目标站点"><a href="#通过代理服务器访问不能访问的目标站点" class="headerlink" title="通过代理服务器访问不能访问的目标站点"></a>通过代理服务器访问不能访问的目标站点</h5><p>互联网上有许多开放的代理服务器，客户机在访问受限时，可通过不受限的代理服务器访问目标站点，通俗说，我们使用的翻墙浏览器就是利用了代理服务器，虽然不能出国，但也可直接访问外网。</p>
+<h4 id="正向代理"><a href="#正向代理" class="headerlink" title="正向代理"></a>正向代理</h4><p>自己指定一个代理服务器,有代理服务器去请求指定的服务,服务端并不关心谁发出了请求,所以对客户端是透明的</p>
+<p>常见应用场景：上google…</p>
+<p><img src="https://www.funtl.com/assets/Lusifer2018080517010002.png" alt="image"></p>
+<h4 id="反向代理"><a href="#反向代理" class="headerlink" title="反向代理"></a>反向代理</h4><p>反向代理服务器架设在服务器端，通过缓冲经常被请求的页面来缓解服务器的工作量，将客户机请求转发给内部网络上的目标服务器；并将从服务器上得到的结果返回给 Internet 上请求连接的客户端，此时代理服务器与目标主机一起对外表现为一个服务器。也就是说对服务端透明,客户端并不知道处理自己请求的是哪一个服务器,且由反向代理服务器作为中间层也间接实现了防火墙的效果。</p>
+<p><img src="https://www.funtl.com/assets/Lusifer2018080517010003.png" alt="image"></p>
+<p>应用场景：现在许多大型 web 网站都用到反向代理。除了可以防止外网对内网服务器的恶性攻击、缓存以减少服务器的压力和访问安全控制之外，还可以进行负载均衡，将用户请求分配给多个服务器。</p>
+<h4 id="使用-Nginx-反向代理-Tomcat"><a href="#使用-Nginx-反向代理-Tomcat" class="headerlink" title="使用 Nginx 反向代理 Tomcat"></a>使用 Nginx 反向代理 Tomcat</h4><h5 id="需求"><a href="#需求" class="headerlink" title="需求"></a>需求</h5><ul>
+<li>两个 tomcat 服务通过 nginx 反向代理</li>
+<li>nginx 服务器：192.168.42.128:80</li>
+<li>tomcat1 服务器：192.168.42.128:9090</li>
+<li>tomcat2 服务器：192.168.42.128:9091</li>
+</ul>
+]]></content>
+  </entry>
+  <entry>
     <title>redis 基本概念</title>
     <url>/20191107/redis-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
     <content><![CDATA[<h4 id="1-传统数据库的劣势"><a href="#1-传统数据库的劣势" class="headerlink" title="1.传统数据库的劣势"></a>1.传统数据库的劣势</h4><p>在比较大型的业务中,传统数据库的查询效率会越来越低,并且传统数据库的数据都是放到磁盘中,也就是查询时会进行频繁的I/O操作,因为磁盘读/写速度比较慢的问题而存在严重的性能弊端,如果同时涌来成千上万的请求,非常容易导致服务器瘫痪,甚至宕机。</p>

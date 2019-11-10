@@ -121,7 +121,7 @@
         <span class="logo-line-after"><i></i></span>
       </a>
     </div>
-        <p class="site-subtitle">我自冷眼看世界,蔑视群雄又如何</p>
+        <p class="site-subtitle">我自冷眼看世界,不问天下是与非</p>
   </div>
 
   <div class="site-nav-toggle">
@@ -221,10 +221,16 @@
                 <i class="fa fa-calendar-o"></i>
               </span>
               <span class="post-meta-item-text">Veröffentlicht am</span>
-              
 
-              <time title="Erstellt: 2019-11-09 10:50:46 / Geändert am: 10:51:09" itemprop="dateCreated datePublished" datetime="2019-11-09T10:50:46+08:00">2019-11-09</time>
+              <time title="Erstellt: 2019-11-09 10:50:46" itemprop="dateCreated datePublished" datetime="2019-11-09T10:50:46+08:00">2019-11-09</time>
             </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="fa fa-calendar-check-o"></i>
+                </span>
+                <span class="post-meta-item-text">Bearbeitet am</span>
+                <time title="Geändert am: 2019-11-10 22:11:11" itemprop="dateModified" datetime="2019-11-10T22:11:11+08:00">2019-11-10</time>
+              </span>
 
           
 
@@ -243,8 +249,12 @@
 <li>虚拟主机：可以实现在一台服务器虚拟出多个网站。例如个人网站使用的虚拟主机。</li>
 <li>反向代理+负载均衡：通过反向代理的方式做到负载均衡。</li>
 </ol>
-<p>==反向代理==：就是说服务器集群时请求不是直接发给服务器,而是先到达反向代理服务器,然后反向代理服务器在发送到服务器。</p>
-<p>==负载均衡==：就是说把请求分发给不同的服务器来处理,且要保证每个服务器处理请求的数量差不多,解决了单个服务器可能处理不过来的瓶颈,也就达到了高并发。</p>
+<ul>
+<li><p>反向代理：就是说服务器集群时请求不是直接发给服务器,而是先到达反向代理服务器,然后反向代理服务器在发送到服务器。</p>
+</li>
+<li><p>负载均衡：就是说把请求分发给不同的服务器来处理,且要保证每个服务器处理请求的数量差不多,解决了单个服务器可能处理不过来的瓶颈,也就达到了高并发。</p>
+</li>
+</ul>
 <p>也就是说NGINX本身就已经达到了高性能、高并发。</p>
 <h4 id="虚拟主机"><a href="#虚拟主机" class="headerlink" title="虚拟主机"></a>虚拟主机</h4><p>NGINX实现虚拟主机用三种方式：</p>
 <ol>
@@ -279,6 +289,32 @@
 <li>tomcat1 服务器：192.168.42.128:9090</li>
 <li>tomcat2 服务器：192.168.42.128:9091</li>
 </ul>
+<h5 id="基于docker-compose的两个tomcat容器"><a href="#基于docker-compose的两个tomcat容器" class="headerlink" title="基于docker-compose的两个tomcat容器"></a>基于docker-compose的两个tomcat容器</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">version: &apos;3&apos;</span><br><span class="line">services:</span><br><span class="line">  tomcat1:</span><br><span class="line">    image: tomcat</span><br><span class="line">    container_name: tomcat1</span><br><span class="line">    ports:</span><br><span class="line">      - 9090:8080</span><br><span class="line"></span><br><span class="line">  tomcat2:</span><br><span class="line">    image: tomcat</span><br><span class="line">    container_name: tomcat2</span><br><span class="line">    ports:</span><br><span class="line">      - 9091:8080</span><br></pre></td></tr></table></figure>
+
+
+<h5 id="配置-Nginx-反向代理"><a href="#配置-Nginx-反向代理" class="headerlink" title="配置 Nginx 反向代理"></a>配置 Nginx 反向代理</h5><p>修改 nginx.conf 配置文件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br></pre></td><td class="code"><pre><span class="line">user  nginx;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line"></span><br><span class="line">    sendfile        on;</span><br><span class="line"></span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line">	</span><br><span class="line">	# 配置一个代理即 tomcat1 服务器</span><br><span class="line">	upstream tomcatServer1 &#123;</span><br><span class="line">		server 192.168.42.128:9090;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	# 配置一个代理即 tomcat2 服务器</span><br><span class="line">	upstream tomcatServer2 &#123;</span><br><span class="line">		server 192.168.42.128:9091;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	# 配置一个虚拟主机</span><br><span class="line">	server &#123;</span><br><span class="line">		listen 80;</span><br><span class="line">		server_name hello.t248.com;</span><br><span class="line">		location / &#123;</span><br><span class="line">				# 域名 hello.t248.com 的请求全部转发到 tomcat_server1 即 tomcat1 服务上</span><br><span class="line">				proxy_pass http://tomcatServer1;</span><br><span class="line">				# 欢迎页面，按照从左到右的顺序查找页面</span><br><span class="line">				index index.jsp index.html index.htm;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	server &#123;</span><br><span class="line">		listen 80;</span><br><span class="line">		server_name hello.nginx.com;</span><br><span class="line"></span><br><span class="line">		location / &#123;</span><br><span class="line">			# 域名 hello.nginx.com 的请求全部转发到 tomcat_server2 即 tomcat2 服务上</span><br><span class="line">			proxy_pass http://tomcatServer2;</span><br><span class="line">			index index.jsp index.html index.htm;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="负载均衡"><a href="#负载均衡" class="headerlink" title="负载均衡"></a>负载均衡</h4><p>负载均衡就是在服务集群时能够保证每个服务处理业务的次数差不多,以此增加吞吐量来达到高可用。</p>
+<h5 id="Nginx-实现负载均衡"><a href="#Nginx-实现负载均衡" class="headerlink" title="Nginx 实现负载均衡"></a>Nginx 实现负载均衡</h5><ul>
+<li>nginx 作为负载均衡服务器，用户请求先到达 nginx，再由 nginx 根据负载配置将请求转发至 tomcat 服务器</li>
+<li>nginx 负载均衡服务器：192.168.75.145:80</li>
+<li>tomcat1 服务器：192.168.75.145:9090</li>
+<li>tomcat2 服务器：192.168.75.145:9091</li>
+<li></li>
+</ul>
+<h5 id="修改nginx-conf"><a href="#修改nginx-conf" class="headerlink" title="修改nginx.conf"></a>修改nginx.conf</h5><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"># 定义负载均衡设备的 Ip及设备状态 </span><br><span class="line"># 每一个upstream就是一个一个反向代理,每一个server就代表一个服务实例,一个反向代理对应多个实例时就会实现负载均衡</span><br><span class="line">upstream myServer &#123;</span><br><span class="line">    server 127.0.0.1:9090 down;</span><br><span class="line">    server 127.0.0.1:8080 weight=2;</span><br><span class="line">    server 127.0.0.1:6060;</span><br><span class="line">    server 127.0.0.1:7070 backup;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><code>upstream</code>每个设备的状态:</p>
+<ul>
+<li><code>down</code>：表示当前的 server 暂时不参与负载</li>
+<li><code>weight</code>：默认为 1 weight 越大，负载的权重就越大。</li>
+<li><code>max_fails</code>：允许请求失败的次数默认为 1 当超过最大次数时，返回<code>proxy_next_upstream</code> 模块定义的错误</li>
+<li><code>fail_timeout</code>: <code>max_fails</code> 次失败后，暂停的时间。</li>
+<li><code>backup</code>：其它所有的非 backup 机器 down 或者忙的时候，请求 backup 机器。所以这台机器压力会最轻</li>
+</ul>
+<p>在启动tomcat前修改默认index.jsp使其打印当前tomcat端口号,然后由nginx反向代理到这两台服务器上,一直刷新页面如果端口号在变说明配置成功。</p>
 
       
     </div>

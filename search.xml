@@ -1,6 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <search>
   <entry>
+    <title>测试一下</title>
+    <url>/20191116/%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B-1/</url>
+    <content><![CDATA[<p><img src="https://www.funtl.com/assets/Lusifer2018080517010003.png" alt=""></p>
+]]></content>
+  </entry>
+  <entry>
     <title>NGINX 基本概念</title>
     <url>/20191109/NGINX-%E5%9F%BA%E6%9C%AC%E6%A6%82%E5%BF%B5/</url>
     <content><![CDATA[<h4 id="什么是-NGINX"><a href="#什么是-NGINX" class="headerlink" title="什么是 NGINX"></a>什么是 NGINX</h4><p>Nginx 是一款高性能的 HTTP 服务器/反向代理服务器及电子邮件（IMAP/POP3）代理服务器。由俄罗斯的程序设计师 Igor Sysoev 所开发，官方测试 Nginx 能够支支撑 5 万并发链接，并且 CPU、内存等资源消耗却非常低，运行非常稳定。</p>

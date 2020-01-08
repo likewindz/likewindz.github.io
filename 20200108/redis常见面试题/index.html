@@ -50,15 +50,19 @@
   };
 </script>
 
-  <meta property="og:type" content="article">
-<meta property="og:title" content="测试一下">
-<meta property="og:url" content="git@github.com:theshy0927&#x2F;theshy0927.github.io.git&#x2F;20191027&#x2F;%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B&#x2F;index.html">
+  <meta name="description" content="redis淘汰策略lru: less recently used 最近最少使用  - noeviction 不删除策略,当内存满了时申请空间直接抛出异常, - allkeys-lru 操作所用通用key,优先删除最近使用较少的 - allkeys-random 操作所用通用key,随机删除部分 - volatile-lru 仅操作设置了expire的key(过期时间),优先删除最近最少使用 - v">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis常见面试题">
+<meta property="og:url" content="git@github.com:theshy0927&#x2F;theshy0927.github.io.git&#x2F;20200108&#x2F;redis%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98&#x2F;index.html">
 <meta property="og:site_name" content="风继续吹">
+<meta property="og:description" content="redis淘汰策略lru: less recently used 最近最少使用  - noeviction 不删除策略,当内存满了时申请空间直接抛出异常, - allkeys-lru 操作所用通用key,优先删除最近使用较少的 - allkeys-random 操作所用通用key,随机删除部分 - volatile-lru 仅操作设置了expire的key(过期时间),优先删除最近最少使用 - v">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:updated_time" content="2019-10-27T15:38:50.904Z">
+<meta property="og:image" content="https:&#x2F;&#x2F;note.youdao.com&#x2F;yws&#x2F;public&#x2F;resource&#x2F;81aa2150e4a711be90151d8c5645cc24&#x2F;xmlnote&#x2F;74D579D14B004CBA924BE98D86CCF781&#x2F;2748">
+<meta property="og:updated_time" content="2020-01-08T03:00:41.386Z">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https:&#x2F;&#x2F;note.youdao.com&#x2F;yws&#x2F;public&#x2F;resource&#x2F;81aa2150e4a711be90151d8c5645cc24&#x2F;xmlnote&#x2F;74D579D14B004CBA924BE98D86CCF781&#x2F;2748">
 
-<link rel="canonical" href="git@github.com:theshy0927/theshy0927.github.io.git/20191027/%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B/">
+<link rel="canonical" href="git@github.com:theshy0927/theshy0927.github.io.git/20200108/redis%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/">
 
 
 <script id="page-configurations">
@@ -72,7 +76,7 @@
   };
 </script>
 
-  <title>测试一下 | 风继续吹</title>
+  <title>redis常见面试题 | 风继续吹</title>
   
 
 
@@ -209,7 +213,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block " lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="git@github.com:theshy0927/theshy0927.github.io.git/20191027/%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B/">
+    <link itemprop="mainEntityOfPage" href="git@github.com:theshy0927/theshy0927.github.io.git/20200108/redis%E5%B8%B8%E8%A7%81%E9%9D%A2%E8%AF%95%E9%A2%98/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="https://dss2.bdstatic.com/70cFvnSh_Q1YnxGkpoWK1HF6hhy/it/u=3524397071,2605131541&fm=26&gp=0.jpg">
@@ -222,7 +226,7 @@
     </span>
       <header class="post-header">
         <h1 class="post-title" itemprop="name headline">
-          测试一下
+          redis常见面试题
         </h1>
 
         <div class="post-meta">
@@ -233,7 +237,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2019-10-27 22:06:32 / 修改时间：23:38:50" itemprop="dateCreated datePublished" datetime="2019-10-27T22:06:32+08:00">2019-10-27</time>
+              <time title="创建时间：2020-01-08 11:00:12 / 修改时间：11:00:41" itemprop="dateCreated datePublished" datetime="2020-01-08T11:00:12+08:00">2020-01-08</time>
             </span>
 
           
@@ -247,7 +251,36 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        
+        <h4 id="redis淘汰策略"><a href="#redis淘汰策略" class="headerlink" title="redis淘汰策略"></a>redis淘汰策略</h4><pre><code>lru: less recently used 最近最少使用
+
+- noeviction 不删除策略,当内存满了时申请空间直接抛出异常,
+- allkeys-lru 操作所用通用key,优先删除最近使用较少的
+- allkeys-random 操作所用通用key,随机删除部分
+- volatile-lru 仅操作设置了expire的key(过期时间),优先删除最近最少使用
+- volatile-random 随机删除部分设置了过期时间的key
+- volatile-ttl 限于设置了expire的key,优先删除剩余过期时间最短的
+
+==如果没有设置expire的key则后面三种会和noeviction一样==</code></pre><h4 id="redis持久化机制"><a href="#redis持久化机制" class="headerlink" title="redis持久化机制"></a>redis持久化机制</h4><p>redis提供了两种持久化策略,rdb与aof,所谓持久化就是把内存数据存在磁盘,保证发生故障或服务下线时数据不丢失。</p>
+<h5 id="持久化之rdb"><a href="#持久化之rdb" class="headerlink" title="持久化之rdb"></a>持久化之rdb</h5><p>RDB 是 Redis 默认的持久化方案。在指定的时间间隔内，执行指定次数的写操作，则会将内存中的数据写入到磁盘中。即在指定目录下生成一个dump.rdb文件。Redis 重启会通过加载dump.rdb文件恢复数据。</p>
+<h6 id="指定时间间隔和执行次数"><a href="#指定时间间隔和执行次数" class="headerlink" title="指定时间间隔和执行次数"></a>指定时间间隔和执行次数</h6><p>在redis.conf 中写入配置,redis默认使用如下配置</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># save &lt;seconds&gt; &lt;changes&gt;</span><br><span class="line"># save &quot;&quot;</span><br><span class="line">save 900 1</span><br><span class="line">save 300 10</span><br><span class="line">save 60 10000</span><br></pre></td></tr></table></figure>
+<p>这里的配置的意思就算900秒执行一个写操作进行一次持久化,300秒10个写操作进行一次持久化,60秒10000个写操作进行一次持久化。可以根据自己的需要来修改这一配置,如果不需要rdb持久化则使用<code>save &quot;&quot;</code>。</p>
+<h6 id="dump-rdb"><a href="#dump-rdb" class="headerlink" title="dump.rdb"></a>dump.rdb</h6><p>默认是这么名字,这是持久化时写入的文件,也是通过该文件完成数据恢复</p>
+<h6 id="能够触发持久化rdb的操作"><a href="#能够触发持久化rdb的操作" class="headerlink" title="能够触发持久化rdb的操作"></a>能够触发持久化rdb的操作</h6><ol>
+<li>flushAll(清空后rdb执行,重新启动时也读不到任何数据)</li>
+<li>shutdown数据库</li>
+<li>写入或者删除数据达到要求</li>
+<li>save命令:阻塞当前redis服务器,直到RDB过程完成为止,如果redis数据较多,可能造成redis进程的长时间阻塞。bgsave: redis执行fork创建子进程,RDB持久化过程由这个子进程负责,完成之后结束。</li>
+</ol>
+<h6 id="恢复数据"><a href="#恢复数据" class="headerlink" title="恢复数据"></a>恢复数据</h6><p>服务重新启动时…,自动载入dump.rdb</p>
+<h6 id="优缺点"><a href="#优缺点" class="headerlink" title="优缺点"></a>优缺点</h6><p>优点: 速度比较快,而且支持异步,不会影响主线程的redis的执行</p>
+<p>缺点: 如果在执行rdb操作时,redis宕机会导致这些数据无法恢复</p>
+<h5 id="持久化之AOF（Append-of-file）"><a href="#持久化之AOF（Append-of-file）" class="headerlink" title="持久化之AOF（Append of file）"></a>持久化之AOF（Append of file）</h5><p>AOF ：Redis 默认不开启。它的出现是为了弥补RDB的不足（数据的不一致性），所以它采用日志的形式来记录每个写操作，并追加到文件中。Redis 重启的会根据日志文件的内容将写指令从前到后执行一次以完成数据的恢复工作。</p>
+<p>简单来说AOF的工作就是: 记录每一次更改操作,数据恢复时逐一执行。</p>
+<p>这样一来优点缺点也就明显了</p>
+<h5 id="优缺点-1"><a href="#优缺点-1" class="headerlink" title="优缺点"></a>优缺点</h5><p>优点: 保证了一致性和完整性<br>缺点: 存在一些多余操作（同一个数据操作了几遍,最后还被删除了…是不是很难受）,而且数据恢复周期肯定比rdb久,且文件可能会很大</p>
+<p><img src="https://note.youdao.com/yws/public/resource/81aa2150e4a711be90151d8c5645cc24/xmlnote/74D579D14B004CBA924BE98D86CCF781/2748" alt="redis启动流程"></p>
+
     </div>
 
     
@@ -260,14 +293,14 @@
 
           <div class="post-nav">
             <div class="post-nav-next post-nav-item">
+                <a href="/20191116/%E6%B5%8B%E8%AF%95%E4%B8%80%E4%B8%8B-1/" rel="next" title="测试一下">
+                  <i class="fa fa-chevron-left"></i> 测试一下
+                </a>
             </div>
 
             <span class="post-nav-divider"></span>
 
             <div class="post-nav-prev post-nav-item">
-                <a href="/20191027/%E6%B5%8B%E8%AF%952/" rel="prev" title="测试2">
-                  测试2 <i class="fa fa-chevron-right"></i>
-                </a>
             </div>
           </div>
       </footer>
@@ -306,6 +339,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-4"><a class="nav-link" href="#redis淘汰策略"><span class="nav-number">1.</span> <span class="nav-text">redis淘汰策略</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#redis持久化机制"><span class="nav-number">2.</span> <span class="nav-text">redis持久化机制</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#持久化之rdb"><span class="nav-number">2.1.</span> <span class="nav-text">持久化之rdb</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#指定时间间隔和执行次数"><span class="nav-number">2.1.1.</span> <span class="nav-text">指定时间间隔和执行次数</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#dump-rdb"><span class="nav-number">2.1.2.</span> <span class="nav-text">dump.rdb</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#能够触发持久化rdb的操作"><span class="nav-number">2.1.3.</span> <span class="nav-text">能够触发持久化rdb的操作</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#恢复数据"><span class="nav-number">2.1.4.</span> <span class="nav-text">恢复数据</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#优缺点"><span class="nav-number">2.1.5.</span> <span class="nav-text">优缺点</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#持久化之AOF（Append-of-file）"><span class="nav-number">2.2.</span> <span class="nav-text">持久化之AOF（Append of file）</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#优缺点-1"><span class="nav-number">2.3.</span> <span class="nav-text">优缺点</span></a></li></ol></li></ol></div>
       </div>
       <!--/noindex-->
 
